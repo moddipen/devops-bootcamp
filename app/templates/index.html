@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Health Dashboard</title>
+    <style>
+        body { font-family: Arial; background: #1a1a2e; color: #eee; padding: 40px; }
+        h1 { color: #00d4ff; }
+        .card { background: #16213e; padding: 20px; margin: 10px 0; border-radius: 8px; }
+        .metric { font-size: 2em; color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <h1>🖥️ Server Health Dashboard</h1>
+    <div class="card">
+        <h3>CPU Usage</h3>
+        <div class="metric" id="cpu">Loading...</div>
+    </div>
+    <div class="card">
+        <h3>Memory Usage</h3>
+        <div class="metric" id="memory">Loading...</div>
+    </div>
+    <div class="card">
+        <h3>Disk Usage</h3>
+        <div class="metric" id="disk">Loading...</div>
+    </div>
+
+    <script>
+        function fetchHealth() {
+            fetch('/api/health')
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById('cpu').innerText = data.cpu_percent + '%';
+                    document.getElementById('memory').innerText = data.memory.percent + '%';
+                    document.getElementById('disk').innerText = data.disk.percent + '%';
+                });
+        }
+        fetchHealth();
+        setInterval(fetchHealth, 5000);
+    </script>
+</body>
+</html>
