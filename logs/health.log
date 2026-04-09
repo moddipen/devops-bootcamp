@@ -1,0 +1,24 @@
+===== SERVER HEALTH REPORT =====
+Date: Thu Apr  9 01:50:01 UTC 2026
+
+--- CPU Cores ---
+2
+
+--- Memory Usage ---
+               total        used        free      shared  buff/cache   available
+Mem:           3.8Gi       578Mi       2.6Gi       544Ki       940Mi       3.3Gi
+Swap:             0B          0B          0B
+
+--- Disk Usage ---
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        30G  3.0G   26G  11% /
+
+--- Top 5 Processes by CPU ---
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root        1544  0.3  0.5 1182160 23612 ?       Sl   Apr08   1:48 /opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit --config /run/google-cloud-ops-agent-fluent-bit/fluent_bit_main.conf --parser /run/google-cloud-ops-agent-fluent-bit/fluent_bit_parser.conf --storage_path /var/lib/google-cloud-ops-agent/fluent-bit/buffers
+root        1514  0.1  3.0 1975700 123472 ?      Ssl  Apr08   0:51 /opt/google-cloud-ops-agent/subagents/opentelemetry-collector/otelopscol --config=/run/google-cloud-ops-agent-opentelemetry-collector/otel.yaml --feature-gates=receiver.prometheusreceiver.RemoveStartTimeAdjustment
+root       81471  0.0  0.6 1277948 27576 ?       Ssl  Apr08   0:19 /usr/bin/google_guest_agent_manager
+root       87410  0.0  0.0      0     0 ?        I    Apr08   0:14 [kworker/0:0-mm_percpu_wq]
+root       81482  0.0  0.6 1279328 26948 ?       Sl   Apr08   0:06 /usr/lib/google/guest_agent/GuestAgentCorePlugin/core_plugin --protocol=unix --address=/run/google-guest-agent/plugin-connections/GuestAgentCorePlugin_20260329.00.sock --errorlogfile=/var/lib/google-guest-agent/2211457897621827740/agent_state/plugins/GuestAgentCorePlugin/plugin.log
+
+===== END OF REPORT =====
