@@ -6,6 +6,7 @@ import os
 
 app = Flask(__name__)
 
+
 def get_db():
     return psycopg2.connect(
         host=os.environ.get('DB_HOST', 'db'),
