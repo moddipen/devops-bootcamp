@@ -1,0 +1,54 @@
+---
+- name: Configure DevOps Lab Server
+  hosts: local
+  become: yes
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - git
+          - vim
+          - htop
+          - net-tools
+        state: present
+
+    - name: Ensure Docker is installed
+      shell: docker --version
+      register: docker_version
+      ignore_errors: yes
+
+    - name: Print Docker version
+      debug:
+        msg: "Docker version: {{ docker_version.stdout }}"
+
+    - name: Create devops user group
+      group:
+        name: devops
+        state: present
+
+    - name: Ensure /var/log/devops directory exists
+      file:
+        path: /var/log/devops
+        state: directory
+        mode: '0755'
+
+    - name: Create health check log file
+      file:
+        path: /var/log/devops/health.log
+        state: touch
+        mode: '0644'
+
+    - name: Check if app is running
+      shell: curl -s http://localhost/health
+      register: app_health
+
+    - name: Print app health status
+      debug:
+        msg: "App health: {{ app_health.stdout }}"
