@@ -10,6 +10,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Create .env file on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cat > ~/devops-bootcamp/.env << EOF
+            POSTGRES_DB=healthdb
+            POSTGRES_USER=admin
+            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            DB_HOST=db
+            DB_NAME=healthdb
+            DB_USER=admin
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            EOF
       - name: Deploy to GCP server
         uses: appleboy/ssh-action@master
         with:
