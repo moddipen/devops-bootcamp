@@ -41446,3 +41446,27 @@ root      165410  0.1  1.2 2016424 48440 ?       Ssl  Apr09   8:23 /usr/bin/cont
 root      774375  0.0  0.0      0     0 ?        I    Apr14   0:07 [kworker/0:3-events]
 
 ===== END OF REPORT =====
+===== SERVER HEALTH REPORT =====
+Date: Wed Apr 15 01:45:01 UTC 2026
+
+--- CPU Cores ---
+2
+
+--- Memory Usage ---
+               total        used        free      shared  buff/cache   available
+Mem:           3.8Gi       807Mi       2.3Gi        15Mi       1.0Gi       3.0Gi
+Swap:             0B          0B          0B
+
+--- Disk Usage ---
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        30G  5.9G   23G  21% /
+
+--- Top 5 Processes by CPU ---
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      788054  1.8  0.2  17320 10464 ?        Ss   01:45   0:00 sshd: root [priv]
+root        1544  0.3  0.5 1181588 21008 ?       Sl   Apr08  34:19 /opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit --config /run/google-cloud-ops-agent-fluent-bit/fluent_bit_main.conf --parser /run/google-cloud-ops-agent-fluent-bit/fluent_bit_parser.conf --storage_path /var/lib/google-cloud-ops-agent/fluent-bit/buffers
+root        1514  0.1  1.7 2049944 72092 ?       Ssl  Apr08  18:14 /opt/google-cloud-ops-agent/subagents/opentelemetry-collector/otelopscol --config=/run/google-cloud-ops-agent-opentelemetry-collector/otel.yaml --feature-gates=receiver.prometheusreceiver.RemoveStartTimeAdjustment
+root      165410  0.1  1.2 2016424 48440 ?       Ssl  Apr09   8:23 /usr/bin/containerd
+root      165481  0.0  2.3 2383740 92924 ?       Ssl  Apr09   7:22 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+===== END OF REPORT =====
