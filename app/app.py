@@ -35,6 +35,10 @@ def init_db():
 def dashboard():
     return render_template('index.html')
 
+@app.route('/ping')
+def ping():
+    return 'ok', 200
+
 @app.route('/api/health')
 def health():
     cpu = psutil.cpu_percent(interval=1)
