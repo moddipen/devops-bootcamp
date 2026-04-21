@@ -1,0 +1,17 @@
+app:
+  name: health-dashboard
+  image: devops-bootcamp-app:latest
+  replicas: 2
+  port: 5000
+
+database:
+  image: postgres:15-alpine
+  name: healthdb
+  user: admin
+  password: securepassword123
+  storage: 1Gi
+
+nginx:
+  image: nginx:alpine
+
+namespace: devops-bootcamp
