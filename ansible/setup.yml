@@ -52,3 +52,16 @@
     - name: Print app health status
       debug:
         msg: "App health: {{ app_health.stdout }}"
+    - name: Ensure .ssh directory exists
+      file:
+        path: /home/moddipen/.ssh
+        state: directory
+        mode: '0700'
+        owner: moddipen
+        group: moddipen
+
+    - name: Add GitHub Actions SSH key permanently
+      authorized_key:
+        user: moddipen
+        state: present
+        key: "{{ lookup('file', '/home/moddipen/.ssh/github_actions.pub') }}"
