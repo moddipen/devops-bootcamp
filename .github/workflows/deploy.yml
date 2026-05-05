@@ -38,3 +38,13 @@ jobs:
             docker compose down
             docker compose up -d --build
             docker compose ps
+  notify-failure:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: failure()
+    steps:
+      - name: Send failure to n8n
+        run: |
+          curl -X POST http://34.93.85.189:5678/webhook/cicd-failure \
+            -H "Content-Type: application/json" \
+            -d '{"error": "GitHub Actions deployment failed for repo ${{ github.repository }} on branch ${{ github.ref_name }}"}'
