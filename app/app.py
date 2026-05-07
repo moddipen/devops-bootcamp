@@ -1,11 +1,14 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+import time
 import psutil
 import datetime
 import psycopg2
 import os
 
 app = Flask(__name__)
-
+REQUEST_COUNT = Counter('flask_request_count', 'Total request count', ['method', 'endpoint'])
+REQUEST_LATENCY = Histogram('flask_request_latency_seconds', 'Request latency', ['endpoint'])
 
 def get_db():
     return psycopg2.connect(
@@ -30,6 +33,16 @@ def init_db():
     conn.commit()
     cur.close()
     conn.close()
+@app.before_request
+def before_request():
+    request.start_time = time.time()
+
+@app.after_request
+def after_request(response):
+    latency = time.time() - request.start_time
+    REQUEST_COUNT.labels(method=request.method, endpoint=request.path).inc()
+    REQUEST_LATENCY.labels(endpoint=request.path).observe(latency)
+    return response
 
 @app.route('/')
 def dashboard():
@@ -79,6 +92,10 @@ def history():
         'memory': r[2],
         'disk': r[3]
     } for r in rows])
+
+@app.route('/metrics')
+def metrics():
+    return generate_latest(), 200, {'Content-Type': CONTENT_TYPE_LATEST}
 
 if __name__ == '__main__':
     init_db()

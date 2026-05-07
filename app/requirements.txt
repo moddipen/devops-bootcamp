@@ -1,3 +1,4 @@
 flask
 psutil
 psycopg2-binary
+prometheus-client
